@@ -1,27 +1,18 @@
 #include <core/logger.h>
 #include <core/asserts.h>
-
-// TODO: temporary
-#include <platform/platform.h>
+#include <core/application.h>
 
 int main(void) {
-    KFATAL("just testing %d ,%d", 42, 17);
-    KERROR("just testing %d ,%d", 42, 17);
-    KWARN("just testing %d ,%d", 42, 17);
-    KINFO("just testing %d ,%d", 42, 17);
-    KTRACE("just testing %d ,%d", 42, 17);
+    application_config config;
 
-    // KASSERT(1 == 0);
-    // KASSERT_MSG(1 == 0, "Testing the assert msg");
+    config.start_pos_x = 100;
+    config.start_pos_y = 100;
+    config.start_width = 1280;
+    config.start_height = 720;
+    config.name = "kaush Game Engine Testbed";
 
-    platform_state plat_state;
-    if (platform_startup(&plat_state, "Kaush Engine Testbed", 100, 100, 1280, 720)) {
-        while (TRUE) {
-            platform_pump_messages(&plat_state);
-        }
-    }
-
-    platform_shutdown(&plat_state);
+    application_create(&config);
+    application_run();
 
     return 0;
 }
